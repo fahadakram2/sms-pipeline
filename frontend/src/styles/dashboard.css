@@ -1,0 +1,59 @@
+.dashboard {
+  padding: 30px;
+  background: #f8f9fc;
+  min-height: 100vh;
+}
+
+.dashboard h2 {
+  margin-bottom: 20px;
+}
+
+.student-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.student-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.student-form button {
+  padding: 8px 15px;
+  background: #1cc88a;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.student-card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-btn {
+  background: rgb(46, 46, 9);
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #e74a3b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
