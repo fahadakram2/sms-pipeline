@@ -5,6 +5,10 @@ pipeline {
         nodejs 'NodeJs'
     }
 
+    environment {
+            SONAR_SCANNER_HOME = tool 'SonarQube-Scanner-600'
+    }
+
     stages {
         stage('Checkout Code') {
             steps{
@@ -52,7 +56,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('MySonarQubeServer'){
                     bat """
-                    sonar-scanner ^
+                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner ^
                       -D"sonar.projectKey=sms-pipeline"
                       -Dsonar.sources=. ^
                       -Dsonar.host.url=%SONAR_HOST_URL%
