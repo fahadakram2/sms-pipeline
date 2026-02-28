@@ -85,7 +85,7 @@ pipeline {
 
                 stage('Frontend Image') {
                     steps {
-                        GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                        
                         bat 'docker build -t %FRONTEND_IMAGE%:%GIT_COMMIT% frontend'
                     }
                 }
