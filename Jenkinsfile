@@ -66,8 +66,8 @@ pipeline {
                 withSonarQubeEnv('MySonarQubeServer'){
                     bat """
                     ${SONAR_SCANNER_HOME}/bin/sonar-scanner ^
-                      -D"sonar.projectKey=sms-pipeline"
-                      -Dsonar.sources=backend, frontend^
+                      -D"sonar.projectKey=sms-pipeline" ^
+                      -Dsonar.sources="backend, frontend" ^
                       -Dsonar.host.url=%SONAR_HOST_URL%
                     """
                 }
@@ -78,14 +78,17 @@ pipeline {
             parallel {
                 stage('Backend Image') {
                     steps{
-                      GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                      bat 'docker build -t %BACKEND_IMAGE%:%GIT_COMMIT% backend'
+                        script {
+                            GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                            bat 'docker build -t %BACKEND_IMAGE%:%GIT_COMMIT% backend'
+                        }
+                      
                     }
                 }
 
                 stage('Frontend Image') {
                     steps {
-                        
+                      
                         bat 'docker build -t %FRONTEND_IMAGE%:%GIT_COMMIT% frontend'
                     }
                 }
