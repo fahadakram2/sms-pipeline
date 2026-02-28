@@ -7,6 +7,9 @@ pipeline {
 
     environment {
             SONAR_SCANNER_HOME = tool 'SonarQube-Scanner-600'
+            BACKEND_IMAGE = "pipeline-sms-backend"
+            FRONTEND_IMAGE = "pipeline-sms-frontend"
+            GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
     }
 
     stages {
@@ -65,10 +68,27 @@ pipeline {
                     bat """
                     ${SONAR_SCANNER_HOME}/bin/sonar-scanner ^
                       -D"sonar.projectKey=sms-pipeline"
-                      -Dsonar.sources=. ^
+                      -Dsonar.sources=backend, frontend^
                       -Dsonar.host.url=%SONAR_HOST_URL%
                     """
                 }
+            }
+        }
+
+        stage('Build Docker Images') {
+            parallel {
+                stage('Backend Image') {
+                    steps{
+                      bat 'docker build -t %BACKEND_IMAGE%:%GIT_COMMIT% backend'
+                    }
+                }
+
+                stage('Frontend Image') {
+                    steps {
+                        bat 'docker build -t %FRONTEND_IMAGE%:%GIT_COMMIT% frontend'
+                    }
+                }
+
             }
         }
 
