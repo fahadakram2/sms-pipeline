@@ -17,15 +17,22 @@ pipeline {
         }
 
         stage('Install Dependency') {
-            steps{
-                dir('backend'){
-                    bat 'npm install'
+            parallel {
+                stage('Backend Dependency Install') {
+                    steps {
+                        dir('backend'){
+                            bat 'npm install'
+                        }
+                    }
                 }
-
-                dir('frontend'){
-                    bat 'npm install'
+                stage('Frontend Dependency install'){
+                    steps {
+                        dir('frontend'){
+                            bat 'npm install'
+                        }
+                    }
+                    
                 }
-                
             }
         }
 
@@ -64,6 +71,8 @@ pipeline {
                 }
             }
         }
+
+
     }
 
     post {
