@@ -9,7 +9,6 @@ pipeline {
             SONAR_SCANNER_HOME = tool 'SonarQube-Scanner-600'
             BACKEND_IMAGE = "pipeline-sms-backend"
             FRONTEND_IMAGE = "pipeline-sms-frontend"
-            GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
     }
 
     stages {
@@ -79,12 +78,14 @@ pipeline {
             parallel {
                 stage('Backend Image') {
                     steps{
+                      GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                       bat 'docker build -t %BACKEND_IMAGE%:%GIT_COMMIT% backend'
                     }
                 }
 
                 stage('Frontend Image') {
                     steps {
+                        GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                         bat 'docker build -t %FRONTEND_IMAGE%:%GIT_COMMIT% frontend'
                     }
                 }
