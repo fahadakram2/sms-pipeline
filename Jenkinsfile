@@ -50,7 +50,7 @@ pipeline {
 
         stage('SAST') {
             steps {
-                withSonarQubeEnv(MySonarQubeServer){
+                withSonarQubeEnv('MySonarQubeServer'){
                     bat """
                     sonar-scanner ^
                       -D"sonar.projectKey=sms-pipeline"
