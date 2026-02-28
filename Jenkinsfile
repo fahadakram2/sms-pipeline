@@ -47,6 +47,19 @@ pipeline {
                 }
             }
         }
+
+        stage('SAST') {
+            steps {
+                withSonarQubeEnv(MySonarQubeServer){
+                    bat """
+                    sonar-scanner ^
+                      -D"sonar.projectKey=sms-pipeline"
+                      -Dsonar.sources=. ^
+                      -Dsonar.host.url=%SONAR_HOST_URL%
+                    """
+                }
+            }
+        }
     }
 
     post {
