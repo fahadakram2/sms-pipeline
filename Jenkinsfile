@@ -78,14 +78,17 @@ pipeline {
             parallel {
                 stage('Backend Image') {
                     steps{
-                            bat 'docker build -t %BACKEND_IMAGE%'                      
+                        script {
+                            bat 'docker build -t %BACKEND_IMAGE% ./backend'
+                        }
+                      
                     }
                 }
 
                 stage('Frontend Image') {
                     steps {
                       
-                        bat 'docker build -t %FRONTEND_IMAGE%'
+                        bat 'docker build -t %FRONTEND_IMAGE% ./frontend'
                     }
                 }
 
