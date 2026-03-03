@@ -78,21 +78,23 @@ pipeline {
             parallel {
                 stage('Backend Image') {
                     steps{
-                        script {
-                            GIT_COMMIT = bat(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                            bat 'docker build -t %BACKEND_IMAGE%:%GIT_COMMIT% backend'
-                        }
-                      
+                            bat 'docker build -t %BACKEND_IMAGE%'                      
                     }
                 }
 
                 stage('Frontend Image') {
                     steps {
                       
-                        bat 'docker build -t %FRONTEND_IMAGE%:%GIT_COMMIT% frontend'
+                        bat 'docker build -t %FRONTEND_IMAGE%'
                     }
                 }
 
+            }
+        }
+
+        stage('Docker compose') {
+            steps {
+                bat 'docker compose up -d'
             }
         }
 
