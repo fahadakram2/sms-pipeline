@@ -145,12 +145,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Docker compose') {
-            steps {
-                bat 'docker compose up -d'
-            }
-        }
     }
 
     post {
