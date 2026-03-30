@@ -92,4 +92,4 @@ jobs:
           context: ./${{ matrix.app }}
           file: ./${{ matrix.app }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/github-sms-pipeline:${{ github.run_number }}
+          tags: ${{ secrets.DOCKER_USER }}/github-sms-${{ matrix.app }}:${{ github.run_number }}
