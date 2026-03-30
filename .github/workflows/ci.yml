@@ -57,4 +57,4 @@ jobs:
       - name: Security Audit
         run: |
           cd ${{ matrix.app }}
-          npm audit --audit-lavel=critical
+          npm audit --audit-level=critical
