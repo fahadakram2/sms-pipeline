@@ -89,6 +89,7 @@ jobs:
       - name: Build Images
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./${{ matrix.app }}
+          file: ./${{ matrix.app }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER }}/github-sms-pipeline:${{ github.run_number }}
